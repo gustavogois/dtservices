@@ -1,0 +1,30 @@
+{
+	"info": {
+		"name": "dtservicesapi",
+		"_postman_id": "11c4b600-2be5-1e88-c170-f84e08e5fcda",
+		"description": "",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "get tipos de servico",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "localhost:8080/tiposdeservico",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"tiposdeservico"
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		}
+	]
+}
