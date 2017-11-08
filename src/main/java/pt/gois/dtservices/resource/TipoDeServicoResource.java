@@ -42,8 +42,9 @@ public class TipoDeServicoResource {
 	}
 	
 	@GetMapping("/{codigo}")
-	public TipoDeServico buscaPeloCodigo(@PathVariable Long codigo) {
-		return tipoDeServicoRepository.findOne(codigo);
+	public ResponseEntity<TipoDeServico> buscaPeloCodigo(@PathVariable Long codigo) {
+		TipoDeServico tipoDeServico = tipoDeServicoRepository.findOne(codigo);
+		return tipoDeServico != null ? ResponseEntity.ok(tipoDeServico) : ResponseEntity.notFound().build();
 	}
 
 }
