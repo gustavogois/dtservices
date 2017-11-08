@@ -25,6 +25,55 @@
 				"description": ""
 			},
 			"response": []
+		},
+		{
+			"name": "salvar tipos de servico",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"nome\" : \"Hidráulica\",\n\t\"valor\" : 10,\n\t\"descricao\" : \"Valor mínimo\"\n}"
+				},
+				"url": {
+					"raw": "localhost:8080/tiposdeservico",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"tiposdeservico"
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "get tipos de servico by codigo",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "localhost:8080/tiposdeservico/4",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"tiposdeservico",
+						"4"
+					]
+				},
+				"description": ""
+			},
+			"response": []
 		}
 	]
 }
