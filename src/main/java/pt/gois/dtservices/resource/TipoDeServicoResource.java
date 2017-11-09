@@ -4,6 +4,7 @@ import java.net.URI;
 import java.util.List;
 
 import javax.servlet.http.HttpServletResponse;
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -33,7 +34,7 @@ public class TipoDeServicoResource {
 	// TODO: Utilizar código e não ID para identificar unicamente as entidades
 	
 	@PostMapping
-	public ResponseEntity<TipoDeServico> criar(@RequestBody TipoDeServico tipoDeServico, HttpServletResponse response) {
+	public ResponseEntity<TipoDeServico> criar(@Valid @RequestBody TipoDeServico tipoDeServico, HttpServletResponse response) {
 		TipoDeServico tipoDeServicoSalvo = tipoDeServicoRepository.save(tipoDeServico);
 		
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequestUri().path("/{codigo}").buildAndExpand(tipoDeServicoSalvo.getId()).toUri();

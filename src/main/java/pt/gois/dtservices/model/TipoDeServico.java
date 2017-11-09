@@ -5,6 +5,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 @Entity
 @Table(name = "tbl_tipo_de_servico")
@@ -13,9 +15,15 @@ public class TipoDeServico {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
+	
+	@NotNull
+	@Size(min = 3, max = 60)
 	private String nome;
+	
 	private double valor;
-	String descricao;
+	
+	@Size(max = 300)
+	private String descricao;
 	
 	public Long getId() {
 		return id;
