@@ -38,7 +38,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n\t\"nome\" : \"Hidráulica\",\n\t\"valor\" : 10,\n\t\"descricao\" : \"Valor mínimo\"\n}"
+					"raw": "{\n\t\"nome\" : \"será deletado\",\n\t\"valor\" : 30,\n\t\"descricao\" : \"Valor mínimo para avaliação\"\n}"
 				},
 				"url": {
 					"raw": "localhost:8080/tiposdeservico",
@@ -61,14 +61,35 @@
 				"header": [],
 				"body": {},
 				"url": {
-					"raw": "localhost:8080/tiposdeservico/4",
+					"raw": "localhost:8080/tiposdeservico/400",
 					"host": [
 						"localhost"
 					],
 					"port": "8080",
 					"path": [
 						"tiposdeservico",
-						"4"
+						"400"
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "delete tipos de servico",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "localhost:8080/tiposdeservico/7",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"tiposdeservico",
+						"7"
 					]
 				},
 				"description": ""
