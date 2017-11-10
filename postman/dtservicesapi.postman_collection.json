@@ -95,6 +95,35 @@
 				"description": ""
 			},
 			"response": []
+		},
+		{
+			"name": "atualizar tipos de servico by codigo",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n        \"nome\": \"Arrombamento de Porta - Fechadura complexa2\",\n        \"valor\": 500,\n        \"descricao\": \"Valor default por porta arrombada2\"\n    }"
+				},
+				"url": {
+					"raw": "localhost:8080/tiposdeservico/2",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"tiposdeservico",
+						"2"
+					]
+				},
+				"description": ""
+			},
+			"response": []
 		}
 	]
 }

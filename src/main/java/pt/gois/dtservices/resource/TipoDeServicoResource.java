@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
@@ -21,6 +22,7 @@ import org.springframework.web.bind.annotation.RestController;
 import pt.gois.dtservices.event.RecursoCriadoEvent;
 import pt.gois.dtservices.model.TipoDeServico;
 import pt.gois.dtservices.repository.TipoDeServicoRepository;
+import pt.gois.dtservices.service.TipoDeServicoService;
 
 @RestController
 @RequestMapping("/tiposdeservico")
@@ -31,6 +33,9 @@ public class TipoDeServicoResource {
 	
 	@Autowired
 	private ApplicationEventPublisher publisher;
+	
+	@Autowired
+	private TipoDeServicoService tipoDeServicoService;
 	
 	@GetMapping
 	public List<TipoDeServico> listar() {
@@ -55,7 +60,13 @@ public class TipoDeServicoResource {
 	@DeleteMapping("/{codigo}")
 	@ResponseStatus(HttpStatus.NO_CONTENT)
 	public void remover(@PathVariable Long codigo) {
-		tipoDeServicoRepository.delete(codigo);;
+		tipoDeServicoRepository.delete(codigo);
 	}
+	
+	@PutMapping("/{codigo}")
+	public ResponseEntity<TipoDeServico> atualizar(@PathVariable Long codigo, @Valid @RequestBody TipoDeServico tipoDeServico) {
+		return ResponseEntity.ok(tipoDeServicoService.atualizar(codigo, tipoDeServico));
+	}
+
 
 }
