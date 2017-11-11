@@ -68,5 +68,4 @@ public class TipoDeServicoResource {
 		return ResponseEntity.ok(tipoDeServicoService.atualizar(codigo, tipoDeServico));
 	}
 
-
 }
