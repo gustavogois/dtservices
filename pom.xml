@@ -44,6 +44,7 @@
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
+
 		
 		<!-- MySQL -->
 		<dependency>
@@ -56,6 +57,25 @@
 		<dependency>
 			<groupId>org.flywaydb</groupId>
 			<artifactId>flyway-core</artifactId>
+		</dependency>
+		
+		<!-- https://mvnrepository.com/artifact/org.junit/junit5-engine -->
+		<dependency>
+		    <groupId>org.junit</groupId>
+		    <artifactId>junit5-engine</artifactId>
+		    <version>5.0.0-ALPHA</version>
+		</dependency>
+				
+		<!-- Hibernate Java 8 Support -->
+		<dependency>
+    		<groupId>org.hibernate</groupId>
+    		<artifactId>hibernate-java8</artifactId>
+		</dependency>
+		
+		<!-- Suporte do Jackson para as datas do Java 8 -->
+		<dependency>
+			<groupId>com.fasterxml.jackson.datatype</groupId>
+			<artifactId>jackson-datatype-jsr310</artifactId>
 		</dependency>
 		
 	</dependencies>
