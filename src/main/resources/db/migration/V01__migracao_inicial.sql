@@ -150,6 +150,7 @@ CREATE TABLE IF NOT EXISTS `tbl_ref_tp_servico` (
   `id_tp_servico` INT NOT NULL,
   `nome` VARCHAR(60) NULL,
   `valor` DECIMAL(9,2) NULL,
+  `descricao` VARCHAR(300) NULL,
   PRIMARY KEY (`id_tp_servico`))
 ENGINE = InnoDB;
 
