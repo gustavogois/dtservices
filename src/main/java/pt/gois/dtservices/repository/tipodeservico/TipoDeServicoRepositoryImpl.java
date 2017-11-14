@@ -47,8 +47,8 @@ public class TipoDeServicoRepositoryImpl implements TipoDeServicoRepositoryQuery
 		List<Predicate> predicates = new ArrayList<>();
 		
 		if (!StringUtils.isEmpty(tipoDeServicoFilter.getId())) {
-			predicates.add(builder.like(
-					builder.lower(root.get("id")), "%" + tipoDeServicoFilter.getId().toLowerCase() + "%"));
+			predicates.add(builder.equal(
+					builder.lower(root.get("id")), Long.valueOf(tipoDeServicoFilter.getId().toLowerCase())));
 		}
 		
 		if (!StringUtils.isEmpty(tipoDeServicoFilter.getNome())) {
