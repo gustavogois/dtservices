@@ -56,6 +56,11 @@ public class TipoDeServicoRepositoryImpl implements TipoDeServicoRepositoryQuery
 					builder.lower(root.get("nome")), "%" + tipoDeServicoFilter.getNome().toLowerCase() + "%"));
 		}
 		
+		if (!StringUtils.isEmpty(tipoDeServicoFilter.getDescricao())) {
+			predicates.add(builder.like(
+					builder.lower(root.get("descricao")), "%" + tipoDeServicoFilter.getDescricao().toLowerCase() + "%"));
+		}
+		
 		return predicates.toArray(new Predicate[predicates.size()]);
 	}
 
