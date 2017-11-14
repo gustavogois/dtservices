@@ -100,7 +100,7 @@ DROP TABLE IF EXISTS `tbl_imovel` ;
 
 SHOW WARNINGS;
 CREATE TABLE IF NOT EXISTS `tbl_imovel` (
-  `id_imovel` BIGINT(4) NOT NULL,
+  `id_imovel` BIGINT(4) NOT NULL AUTO_INCREMENT,
   `nome` VARCHAR(60) NOT NULL,
   `crp` VARCHAR(60) NULL,
   PRIMARY KEY (`id_imovel`),
@@ -120,7 +120,7 @@ DROP TABLE IF EXISTS `tbl_processo` ;
 
 SHOW WARNINGS;
 CREATE TABLE IF NOT EXISTS `tbl_processo` (
-  `id_processo` BIGINT(4) NOT NULL,
+  `id_processo` BIGINT(4) NOT NULL AUTO_INCREMENT,
   `id_imovel` BIGINT(4) NOT NULL,
   `cod_externo` VARCHAR(30) NOT NULL,
   `cod_interno` VARCHAR(9) NOT NULL,
@@ -147,7 +147,7 @@ DROP TABLE IF EXISTS `tbl_ref_tp_servico` ;
 
 SHOW WARNINGS;
 CREATE TABLE IF NOT EXISTS `tbl_ref_tp_servico` (
-  `id_tp_servico` INT NOT NULL,
+  `id_tp_servico` INT NOT NULL AUTO_INCREMENT,
   `nome` VARCHAR(60) NULL,
   `valor` DECIMAL(9,2) NULL,
   `descricao` VARCHAR(300) NULL,
@@ -163,7 +163,7 @@ DROP TABLE IF EXISTS `tbl_servico` ;
 
 SHOW WARNINGS;
 CREATE TABLE IF NOT EXISTS `tbl_servico` (
-  `id_servico` BIGINT(4) NOT NULL,
+  `id_servico` BIGINT(4) NOT NULL AUTO_INCREMENT,
   `id_processo` BIGINT(4) NOT NULL,
   `id_tp_servico` INT NOT NULL,
   `valor` DECIMAL(9,2) NULL,
@@ -221,7 +221,7 @@ DROP TABLE IF EXISTS `tbl_utilizador` ;
 
 SHOW WARNINGS;
 CREATE TABLE IF NOT EXISTS `tbl_utilizador` (
-  `id_utilizador` INT NOT NULL,
+  `id_utilizador` INT NOT NULL AUTO_INCREMENT,
   `id_perfil_utilizador` INT NOT NULL,
   `nome` VARCHAR(60) NULL,
   PRIMARY KEY (`id_utilizador`),
@@ -314,7 +314,7 @@ DROP TABLE IF EXISTS `tbl_ref_categoria_peca` ;
 
 SHOW WARNINGS;
 CREATE TABLE IF NOT EXISTS `tbl_ref_categoria_peca` (
-  `id_categoria_peca` INT NOT NULL,
+  `id_categoria_peca` INT NOT NULL AUTO_INCREMENT,
   `nome` VARCHAR(60) NULL,
   PRIMARY KEY (`id_categoria_peca`))
 ENGINE = InnoDB;
@@ -328,7 +328,7 @@ DROP TABLE IF EXISTS `tbl_peca` ;
 
 SHOW WARNINGS;
 CREATE TABLE IF NOT EXISTS `tbl_peca` (
-  `id_peca` INT NOT NULL,
+  `id_peca` INT NOT NULL AUTO_INCREMENT,
   `id_categoria_peca` INT NOT NULL,
   `nome` VARCHAR(60) NULL,
   PRIMARY KEY (`id_peca`),
@@ -349,7 +349,7 @@ DROP TABLE IF EXISTS `tbl_peca_servico` ;
 
 SHOW WARNINGS;
 CREATE TABLE IF NOT EXISTS `tbl_peca_servico` (
-  `id_peca_servico` BIGINT(4) NOT NULL,
+  `id_peca_servico` BIGINT(4) NOT NULL AUTO_INCREMENT,
   `id_peca` INT NOT NULL,
   `id_servico` BIGINT(4) NOT NULL,
   INDEX `fk_tbl_peca_servico_tbl_peca1_idx` (`id_peca` ASC),
