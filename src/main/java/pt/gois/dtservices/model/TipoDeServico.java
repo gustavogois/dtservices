@@ -1,5 +1,6 @@
 package pt.gois.dtservices.model;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -9,11 +10,12 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 @Entity
-@Table(name = "tbl_tipo_de_servico")
+@Table(name = "tbl_ref_tp_servico")
 public class TipoDeServico {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name="id_tp_servico")
 	private Long id;
 	
 	@NotNull

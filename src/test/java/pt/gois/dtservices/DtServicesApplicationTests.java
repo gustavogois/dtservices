@@ -14,7 +14,6 @@ import org.springframework.test.web.servlet.MockMvc;
 
 import pt.gois.dtservices.repository.TipoDeServicoRepository;
 import pt.gois.dtservices.resource.TipoDeServicoResource;
-import pt.gois.dtservices.service.TipoDeServicoService;
 
 @RunWith(SpringRunner.class)
 @WebMvcTest(TipoDeServicoResource.class)
@@ -25,9 +24,6 @@ public class DtServicesApplicationTests {
 	
 	@MockBean
     private TipoDeServicoRepository repository;
-	
-	@MockBean
-    private TipoDeServicoService service;
 	
 	@Test
 	public void contextLoads() throws Exception {
