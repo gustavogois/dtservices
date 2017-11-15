@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
@@ -23,6 +24,7 @@ import pt.gois.dtservices.event.RecursoCriadoEvent;
 import pt.gois.dtservices.model.TipoDeServico;
 import pt.gois.dtservices.repository.TipoDeServicoRepository;
 import pt.gois.dtservices.repository.filter.TipoDeServicoFilter;
+import pt.gois.dtservices.service.TipoDeServicoService;
 
 @RestController
 @RequestMapping("/tiposdeservico")
@@ -30,6 +32,9 @@ public class TipoDeServicoResource {
 
 	@Autowired
 	private TipoDeServicoRepository tipoDeServicoRepository;
+	
+	@Autowired
+	private TipoDeServicoService tipoDeServicoService;
 	
 	@Autowired
 	private ApplicationEventPublisher publisher;
@@ -54,6 +59,12 @@ public class TipoDeServicoResource {
 		publisher.publishEvent(new RecursoCriadoEvent(this, response, tipoDeServicoSalvo.getId()));
 		return ResponseEntity.status(HttpStatus.CREATED).body(tipoDeServicoSalvo);
 	}
+	
+	@PutMapping("/{id}")
+	public ResponseEntity<TipoDeServico> atualizar(@PathVariable Long id, @Valid @RequestBody TipoDeServico tipoDeServico) {
+		return ResponseEntity.ok(tipoDeServicoService.atualizar(id, tipoDeServico));
+	}
+
 	
 	@DeleteMapping("/{codigo}")
 	@ResponseStatus(HttpStatus.NO_CONTENT)
