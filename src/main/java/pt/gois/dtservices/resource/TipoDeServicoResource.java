@@ -66,10 +66,10 @@ public class TipoDeServicoResource {
 	}
 
 	
-	@DeleteMapping("/{codigo}")
+	@DeleteMapping("/{id}")
 	@ResponseStatus(HttpStatus.NO_CONTENT)
-	public void remover(@PathVariable Long codigo) {
-		tipoDeServicoRepository.delete(codigo);;
+	public void remover(@PathVariable Long id) {
+		tipoDeServicoRepository.delete(id);;
 	}
 
 	
