@@ -12,8 +12,8 @@
 				"method": "GET",
 				"header": [
 					{
-						"key": "Authentication",
-						"value": "Bearer bf9d8931-aad4-4555-a2dc-d8cc79a865cd"
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE1MTA4NzMwNzIsInVzZXJfbmFtZSI6ImFkbWluIiwiYXV0aG9yaXRpZXMiOlsiUk9MRV9ST0xFIl0sImp0aSI6IjdjYTJkNzM1LThlZTgtNDMzNy05YWI2LTZmM2JjMjhhOTMwNCIsImNsaWVudF9pZCI6ImFuZ3VsYXIiLCJzY29wZSI6WyJyZWFkIiwid3JpdGUiXX0.IqXijGtMke9USebCguN3LMqtW9oVKqEzagu3YgkYCs4"
 					}
 				],
 				"body": {},
@@ -188,6 +188,72 @@
 						{
 							"key": "grant_type",
 							"value": "password",
+							"description": "",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "localhost:8080/oauth/token",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"oauth",
+						"token"
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "get token com refresh token",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "username",
+							"value": "angular",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "@ngul@r0",
+							"type": "string"
+						},
+						{
+							"key": "saveHelperData",
+							"type": "any"
+						},
+						{
+							"key": "showPassword",
+							"value": false,
+							"type": "boolean"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/x-www-form-urlencoded"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "grant_type",
+							"value": "refresh_token",
+							"description": "",
+							"type": "text"
+						},
+						{
+							"key": "refresh_token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX25hbWUiOiJhZG1pbiIsInNjb3BlIjpbInJlYWQiLCJ3cml0ZSJdLCJhdGkiOiJmOTk5MWZlMy05NGYxLTQzZTYtODIzYS1iNTc3YzMxOTZlOTQiLCJleHAiOjE1MTA5NTkwNDksImF1dGhvcml0aWVzIjpbIlJPTEVfUk9MRSJdLCJqdGkiOiI5ZWUwMjEwYS0yY2NiLTQ3MmYtODY1Zi0zOGVjOWFjZWYyMzciLCJjbGllbnRfaWQiOiJhbmd1bGFyIn0.JfB89q8WTTz4CZUo_9rktLacIksP80ogpkH4lreduvg",
 							"description": "",
 							"type": "text"
 						}
