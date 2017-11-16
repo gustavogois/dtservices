@@ -108,7 +108,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n        \"nome\": \"Arrombamento de Porta - Fechadura complexa2\",\n        \"valor\": 500,\n        \"descricao\": \"Valor default por porta arrombada2\"\n    }"
+					"raw": "{\n        \"nome\": null,\n        \"valor\": 100,\n        \"descricao\": \"alterado\"\n    }"
 				},
 				"url": {
 					"raw": "localhost:8080/tiposdeservico/2",
