@@ -11,34 +11,34 @@ import java.util.List;
  */
 @Entity
 @Table(name="tbl_ref_concelho")
+@NamedQuery(name="Concelho.findAll", query="SELECT c FROM Concelho c")
 public class Concelho implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@Column(name="id_concelho")
-	private int idConcelho;
+	private int id;
 
 	private String nome;
 
-	//bi-directional many-to-one association to TblRefLocalidade
-	@ManyToOne(fetch=FetchType.LAZY)
+	//bi-directional many-to-one association to Localidade
+	@ManyToOne
 	@JoinColumn(name="id_localidade")
 	private Localidade tblRefLocalidade;
 
-	//bi-directional many-to-one association to TblRefDistrito
+	//bi-directional many-to-one association to Distrito
 	@OneToMany(mappedBy="tblRefConcelho")
 	private List<Distrito> tblRefDistritos;
 
 	public Concelho() {
 	}
 
-	public int getIdConcelho() {
-		return this.idConcelho;
+	public int getId() {
+		return this.id;
 	}
 
-	public void setIdConcelho(int idConcelho) {
-		this.idConcelho = idConcelho;
+	public void setId(int id) {
+		this.id = id;
 	}
 
 	public String getNome() {

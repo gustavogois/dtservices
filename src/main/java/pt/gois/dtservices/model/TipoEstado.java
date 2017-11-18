@@ -11,35 +11,35 @@ import java.util.List;
  */
 @Entity
 @Table(name="tbl_ref_tipo_estado")
+@NamedQuery(name="TipoEstado.findAll", query="SELECT t FROM TipoEstado t")
 public class TipoEstado implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@Column(name="id_tipo_estado")
-	private int idTipoEstado;
+	private int id;
 
 	private String categoria;
 
 	private String nome;
 
-	//bi-directional many-to-one association to TblEstadoProcesso
+	//bi-directional many-to-one association to EstadoProcesso
 	@OneToMany(mappedBy="tblRefTipoEstado")
 	private List<EstadoProcesso> tblEstadoProcessos;
 
-	//bi-directional many-to-one association to TblEstadoServico
+	//bi-directional many-to-one association to EstadoServico
 	@OneToMany(mappedBy="tblRefTipoEstado")
 	private List<EstadoServico> tblEstadoServicos;
 
 	public TipoEstado() {
 	}
 
-	public int getIdTipoEstado() {
-		return this.idTipoEstado;
+	public int getId() {
+		return this.id;
 	}
 
-	public void setIdTipoEstado(int idTipoEstado) {
-		this.idTipoEstado = idTipoEstado;
+	public void setId(int id) {
+		this.id = id;
 	}
 
 	public String getCategoria() {

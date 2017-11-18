@@ -1,80 +1,89 @@
 package pt.gois.dtservices.model;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
+import java.io.Serializable;
+import javax.persistence.*;
+import java.math.BigDecimal;
+import java.util.List;
 
+
+/**
+ * The persistent class for the tbl_ref_tp_servico database table.
+ * 
+ */
 @Entity
-@Table(name = "tbl_ref_tp_servico")
-public class TipoDeServico {
-	
+@Table(name="tbl_ref_tp_servico")
+public class TipoDeServico implements Serializable {
+	private static final long serialVersionUID = 1L;
+
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name="id_tp_servico")
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Long id;
-	
-	@NotNull
-	@Size(min = 3, max = 60)
-	private String nome;
-	
-	private double valor;
-	
-	@Size(max = 300)
+
 	private String descricao;
-	
-	public Long getId() {
-		return id;
+
+	private String nome;
+
+	private BigDecimal valor;
+
+	//bi-directional many-to-one association to Servico
+	@OneToMany(mappedBy="tblRefTpServico")
+	private List<Servico> tblServicos;
+
+	public TipoDeServico() {
 	}
+
+	public Long getId() {
+		return this.id;
+	}
+
 	public void setId(Long id) {
 		this.id = id;
 	}
-	public String getNome() {
-		return nome;
-	}
-	public void setNome(String nome) {
-		this.nome = nome;
-	}
-	public double getValor() {
-		return valor;
-	}
-	public void setValor(double valor) {
-		this.valor = valor;
-	}
+
 	public String getDescricao() {
-		return descricao;
+		return this.descricao;
 	}
+
 	public void setDescricao(String descricao) {
 		this.descricao = descricao;
 	}
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((id == null) ? 0 : id.hashCode());
-		return result;
+
+	public String getNome() {
+		return this.nome;
 	}
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		TipoDeServico other = (TipoDeServico) obj;
-		if (id == null) {
-			if (other.id != null)
-				return false;
-		} else if (!id.equals(other.id))
-			return false;
-		return true;
+
+	public void setNome(String nome) {
+		this.nome = nome;
 	}
-	
-	
+
+	public BigDecimal getValor() {
+		return this.valor;
+	}
+
+	public void setValor(BigDecimal valor) {
+		this.valor = valor;
+	}
+
+	public List<Servico> getTblServicos() {
+		return this.tblServicos;
+	}
+
+	public void setTblServicos(List<Servico> tblServicos) {
+		this.tblServicos = tblServicos;
+	}
+
+	public Servico addTblServico(Servico tblServico) {
+		getTblServicos().add(tblServico);
+		tblServico.setTblRefTpServico(this);
+
+		return tblServico;
+	}
+
+	public Servico removeTblServico(Servico tblServico) {
+		getTblServicos().remove(tblServico);
+		tblServico.setTblRefTpServico(null);
+
+		return tblServico;
+	}
 
 }

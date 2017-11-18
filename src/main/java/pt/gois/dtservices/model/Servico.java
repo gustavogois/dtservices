@@ -12,45 +12,45 @@ import java.util.List;
  */
 @Entity
 @Table(name="tbl_servico")
+@NamedQuery(name="Servico.findAll", query="SELECT s FROM Servico s")
 public class Servico implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@Column(name="id_servico")
-	private String idServico;
+	private String id;
 
 	private String observacoes;
 
 	private BigDecimal valor;
 
-	//bi-directional many-to-one association to TblEstadoServico
+	//bi-directional many-to-one association to EstadoServico
 	@OneToMany(mappedBy="tblServico")
 	private List<EstadoServico> tblEstadoServicos;
 
-	//bi-directional many-to-one association to TblPecaServico
+	//bi-directional many-to-one association to PecaServico
 	@OneToMany(mappedBy="tblServico")
 	private List<PecaServico> tblPecaServicos;
 
-	//bi-directional many-to-one association to TblProcesso
-	@ManyToOne(fetch=FetchType.LAZY)
+	//bi-directional many-to-one association to Processo
+	@ManyToOne
 	@JoinColumn(name="id_processo")
 	private Processo tblProcesso;
 
-	//bi-directional many-to-one association to TblRefTpServico
-	@ManyToOne(fetch=FetchType.LAZY)
+	//bi-directional many-to-one association to TpServico
+	@ManyToOne
 	@JoinColumn(name="id_tp_servico")
-	private TipoServico tblRefTpServico;
+	private TipoDeServico tblRefTpServico;
 
 	public Servico() {
 	}
 
-	public String getIdServico() {
-		return this.idServico;
+	public String getId() {
+		return this.id;
 	}
 
-	public void setIdServico(String idServico) {
-		this.idServico = idServico;
+	public void setId(String id) {
+		this.id = id;
 	}
 
 	public String getObservacoes() {
@@ -121,11 +121,11 @@ public class Servico implements Serializable {
 		this.tblProcesso = tblProcesso;
 	}
 
-	public TipoServico getTblRefTpServico() {
+	public TipoDeServico getTblRefTpServico() {
 		return this.tblRefTpServico;
 	}
 
-	public void setTblRefTpServico(TipoServico tblRefTpServico) {
+	public void setTblRefTpServico(TipoDeServico tblRefTpServico) {
 		this.tblRefTpServico = tblRefTpServico;
 	}
 

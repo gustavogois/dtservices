@@ -11,38 +11,41 @@ import java.util.List;
  */
 @Entity
 @Table(name="tbl_utilizador")
+@NamedQuery(name="Utilizador.findAll", query="SELECT u FROM Utilizador u")
 public class Utilizador implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@Column(name="id_utilizador")
-	private int idUtilizador;
+	private String id;
+
+	private String email;
 
 	private String nome;
 
-	//bi-directional many-to-one association to TblEstadoProcesso
-	@OneToMany(mappedBy="tblUtilizador")
-	private List<EstadoProcesso> tblEstadoProcessos;
+	private String senha;
 
-	//bi-directional many-to-one association to TblEstadoServico
-	@OneToMany(mappedBy="tblUtilizador")
-	private List<EstadoServico> tblEstadoServicos;
-
-	//bi-directional many-to-one association to TblRefPerfilUtilizador
-	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="id_perfil_utilizador")
-	private PerfilUtilizador tblRefPerfilUtilizador;
+	//bi-directional many-to-many association to Permissao
+	@ManyToMany(mappedBy="tblUtilizadors")
+	private List<Permissao> tblPermissaos;
 
 	public Utilizador() {
 	}
 
-	public int getIdUtilizador() {
-		return this.idUtilizador;
+	public String getId() {
+		return this.id;
 	}
 
-	public void setIdUtilizador(int idUtilizador) {
-		this.idUtilizador = idUtilizador;
+	public void setId(String id) {
+		this.id = id;
+	}
+
+	public String getEmail() {
+		return this.email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
 	}
 
 	public String getNome() {
@@ -53,56 +56,20 @@ public class Utilizador implements Serializable {
 		this.nome = nome;
 	}
 
-	public List<EstadoProcesso> getTblEstadoProcessos() {
-		return this.tblEstadoProcessos;
+	public String getSenha() {
+		return this.senha;
 	}
 
-	public void setTblEstadoProcessos(List<EstadoProcesso> tblEstadoProcessos) {
-		this.tblEstadoProcessos = tblEstadoProcessos;
+	public void setSenha(String senha) {
+		this.senha = senha;
 	}
 
-	public EstadoProcesso addTblEstadoProcesso(EstadoProcesso tblEstadoProcesso) {
-		getTblEstadoProcessos().add(tblEstadoProcesso);
-		tblEstadoProcesso.setTblUtilizador(this);
-
-		return tblEstadoProcesso;
+	public List<Permissao> getTblPermissaos() {
+		return this.tblPermissaos;
 	}
 
-	public EstadoProcesso removeTblEstadoProcesso(EstadoProcesso tblEstadoProcesso) {
-		getTblEstadoProcessos().remove(tblEstadoProcesso);
-		tblEstadoProcesso.setTblUtilizador(null);
-
-		return tblEstadoProcesso;
-	}
-
-	public List<EstadoServico> getTblEstadoServicos() {
-		return this.tblEstadoServicos;
-	}
-
-	public void setTblEstadoServicos(List<EstadoServico> tblEstadoServicos) {
-		this.tblEstadoServicos = tblEstadoServicos;
-	}
-
-	public EstadoServico addTblEstadoServico(EstadoServico tblEstadoServico) {
-		getTblEstadoServicos().add(tblEstadoServico);
-		tblEstadoServico.setTblUtilizador(this);
-
-		return tblEstadoServico;
-	}
-
-	public EstadoServico removeTblEstadoServico(EstadoServico tblEstadoServico) {
-		getTblEstadoServicos().remove(tblEstadoServico);
-		tblEstadoServico.setTblUtilizador(null);
-
-		return tblEstadoServico;
-	}
-
-	public PerfilUtilizador getTblRefPerfilUtilizador() {
-		return this.tblRefPerfilUtilizador;
-	}
-
-	public void setTblRefPerfilUtilizador(PerfilUtilizador tblRefPerfilUtilizador) {
-		this.tblRefPerfilUtilizador = tblRefPerfilUtilizador;
+	public void setTblPermissaos(List<Permissao> tblPermissaos) {
+		this.tblPermissaos = tblPermissaos;
 	}
 
 }

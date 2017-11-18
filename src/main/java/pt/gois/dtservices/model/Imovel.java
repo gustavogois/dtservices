@@ -11,36 +11,35 @@ import java.util.List;
  */
 @Entity
 @Table(name="tbl_imovel")
+@NamedQuery(name="Imovel.findAll", query="SELECT i FROM Imovel i")
 public class Imovel implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@Column(name="id_imovel")
-	private String idImovel;
+	private String id;
 
 	private String crp;
 
 	private String nome;
 
-	//bi-directional one-to-one association to TblEndereco
-	@OneToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="id_imovel")
+	//bi-directional one-to-one association to Endereco
+	@OneToOne(mappedBy="tblImovel")
 	private Endereco tblEndereco;
 
-	//bi-directional many-to-one association to TblProcesso
+	//bi-directional many-to-one association to Processo
 	@OneToMany(mappedBy="tblImovel")
 	private List<Processo> tblProcessos;
 
 	public Imovel() {
 	}
 
-	public String getIdImovel() {
-		return this.idImovel;
+	public String getId() {
+		return this.id;
 	}
 
-	public void setIdImovel(String idImovel) {
-		this.idImovel = idImovel;
+	public void setId(String id) {
+		this.id = id;
 	}
 
 	public String getCrp() {

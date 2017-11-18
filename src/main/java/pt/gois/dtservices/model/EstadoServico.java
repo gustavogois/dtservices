@@ -11,13 +11,13 @@ import java.util.Date;
  */
 @Entity
 @Table(name="tbl_estado_servico")
+@NamedQuery(name="EstadoServico.findAll", query="SELECT e FROM EstadoServico e")
 public class EstadoServico implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@Column(name="id_estado_servico")
-	private String idEstadoServico;
+	private String id;
 
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name="dt_fim")
@@ -27,30 +27,25 @@ public class EstadoServico implements Serializable {
 	@Column(name="dt_inicio")
 	private Date dtInicio;
 
-	//bi-directional many-to-one association to TblRefTipoEstado
-	@ManyToOne(fetch=FetchType.LAZY)
+	//bi-directional many-to-one association to TipoEstado
+	@ManyToOne
 	@JoinColumn(name="id_tipo_estado")
 	private TipoEstado tblRefTipoEstado;
 
-	//bi-directional many-to-one association to TblServico
-	@ManyToOne(fetch=FetchType.LAZY)
+	//bi-directional many-to-one association to Servico
+	@ManyToOne
 	@JoinColumn(name="id_servico")
 	private Servico tblServico;
-
-	//bi-directional many-to-one association to TblUtilizador
-	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="id_utilizador")
-	private Utilizador tblUtilizador;
 
 	public EstadoServico() {
 	}
 
-	public String getIdEstadoServico() {
-		return this.idEstadoServico;
+	public String getId() {
+		return this.id;
 	}
 
-	public void setIdEstadoServico(String idEstadoServico) {
-		this.idEstadoServico = idEstadoServico;
+	public void setId(String id) {
+		this.id = id;
 	}
 
 	public Date getDtFim() {
@@ -83,14 +78,6 @@ public class EstadoServico implements Serializable {
 
 	public void setTblServico(Servico tblServico) {
 		this.tblServico = tblServico;
-	}
-
-	public Utilizador getTblUtilizador() {
-		return this.tblUtilizador;
-	}
-
-	public void setTblUtilizador(Utilizador tblUtilizador) {
-		this.tblUtilizador = tblUtilizador;
 	}
 
 }

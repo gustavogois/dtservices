@@ -10,33 +10,33 @@ import javax.persistence.*;
  */
 @Entity
 @Table(name="tbl_peca_servico")
+@NamedQuery(name="PecaServico.findAll", query="SELECT p FROM PecaServico p")
 public class PecaServico implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@Column(name="id_peca_servico")
-	private String idPecaServico;
+	private String id;
 
-	//bi-directional many-to-one association to TblPeca
-	@ManyToOne(fetch=FetchType.LAZY)
+	//bi-directional many-to-one association to Peca
+	@ManyToOne
 	@JoinColumn(name="id_peca")
 	private Peca tblPeca;
 
-	//bi-directional many-to-one association to TblServico
-	@ManyToOne(fetch=FetchType.LAZY)
+	//bi-directional many-to-one association to Servico
+	@ManyToOne
 	@JoinColumn(name="id_servico")
 	private Servico tblServico;
 
 	public PecaServico() {
 	}
 
-	public String getIdPecaServico() {
-		return this.idPecaServico;
+	public String getId() {
+		return this.id;
 	}
 
-	public void setIdPecaServico(String idPecaServico) {
-		this.idPecaServico = idPecaServico;
+	public void setId(String id) {
+		this.id = id;
 	}
 
 	public Peca getTblPeca() {

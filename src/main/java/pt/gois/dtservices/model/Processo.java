@@ -12,13 +12,13 @@ import java.util.List;
  */
 @Entity
 @Table(name="tbl_processo")
+@NamedQuery(name="Processo.findAll", query="SELECT p FROM Processo p")
 public class Processo implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@Column(name="id_processo")
-	private String idProcesso;
+	private String id;
 
 	@Column(name="cod_externo")
 	private String codExterno;
@@ -41,28 +41,28 @@ public class Processo implements Serializable {
 
 	private String requisitante;
 
-	//bi-directional many-to-one association to TblEstadoProcesso
+	//bi-directional many-to-one association to EstadoProcesso
 	@OneToMany(mappedBy="tblProcesso")
 	private List<EstadoProcesso> tblEstadoProcessos;
 
-	//bi-directional many-to-one association to TblImovel
-	@ManyToOne(fetch=FetchType.LAZY)
+	//bi-directional many-to-one association to Imovel
+	@ManyToOne
 	@JoinColumn(name="id_imovel")
 	private Imovel tblImovel;
 
-	//bi-directional many-to-one association to TblServico
+	//bi-directional many-to-one association to Servico
 	@OneToMany(mappedBy="tblProcesso")
 	private List<Servico> tblServicos;
 
 	public Processo() {
 	}
 
-	public String getIdProcesso() {
-		return this.idProcesso;
+	public String getId() {
+		return this.id;
 	}
 
-	public void setIdProcesso(String idProcesso) {
-		this.idProcesso = idProcesso;
+	public void setId(String id) {
+		this.id = id;
 	}
 
 	public String getCodExterno() {

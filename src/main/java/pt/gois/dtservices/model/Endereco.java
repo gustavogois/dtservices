@@ -10,6 +10,7 @@ import javax.persistence.*;
  */
 @Entity
 @Table(name="tbl_endereco")
+@NamedQuery(name="Endereco.findAll", query="SELECT e FROM Endereco e")
 public class Endereco implements Serializable {
 	private static final long serialVersionUID = 1L;
 
@@ -38,13 +39,14 @@ public class Endereco implements Serializable {
 	@Column(name="tbl_ref_distrito_id_distrito")
 	private int tblRefDistritoIdDistrito;
 
-	//bi-directional many-to-one association to TblRefDistrito
-	@ManyToOne(fetch=FetchType.LAZY)
+	//bi-directional many-to-one association to Distrito
+	@ManyToOne
 	@JoinColumn(name="id_distrito")
 	private Distrito tblRefDistrito;
 
-	//bi-directional one-to-one association to TblImovel
-	@OneToOne(mappedBy="tblEndereco", fetch=FetchType.LAZY)
+	//bi-directional one-to-one association to Imovel
+	@OneToOne
+	@JoinColumn(name="id_imovel")
 	private Imovel tblImovel;
 
 	public Endereco() {
