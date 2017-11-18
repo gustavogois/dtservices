@@ -16,9 +16,9 @@ DROP TABLE IF EXISTS `tbl_ref_localidade` ;
 
 SHOW WARNINGS;
 CREATE TABLE IF NOT EXISTS `tbl_ref_localidade` (
-  `id_localidade` INT NOT NULL,
+  `id` INT NOT NULL,
   `nome` VARCHAR(60) NULL,
-  PRIMARY KEY (`id_localidade`))
+  PRIMARY KEY (`id`))
 ENGINE = InnoDB;
 
 SHOW WARNINGS;
@@ -30,14 +30,14 @@ DROP TABLE IF EXISTS `tbl_ref_concelho` ;
 
 SHOW WARNINGS;
 CREATE TABLE IF NOT EXISTS `tbl_ref_concelho` (
-  `id_concelho` INT NOT NULL,
+  `id` INT NOT NULL,
   `id_localidade` INT NOT NULL,
   `nome` VARCHAR(60) NULL,
-  PRIMARY KEY (`id_concelho`),
+  PRIMARY KEY (`id`),
   INDEX `fk_tbl_ref_concelho_tbl_ref_localidade1_idx` (`id_localidade` ASC),
   CONSTRAINT `fk_tbl_ref_concelho_tbl_ref_localidade1`
     FOREIGN KEY (`id_localidade`)
-    REFERENCES `tbl_ref_localidade` (`id_localidade`)
+    REFERENCES `tbl_ref_localidade` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
@@ -51,14 +51,14 @@ DROP TABLE IF EXISTS `tbl_ref_distrito` ;
 
 SHOW WARNINGS;
 CREATE TABLE IF NOT EXISTS `tbl_ref_distrito` (
-  `id_distrito` INT NOT NULL,
+  `id` INT NOT NULL,
   `id_concelho` INT NOT NULL,
   `nome` VARCHAR(60) NULL,
-  PRIMARY KEY (`id_distrito`),
+  PRIMARY KEY (`id`),
   INDEX `fk_tbl_ref_distrito_tbl_ref_concelho1_idx` (`id_concelho` ASC),
   CONSTRAINT `fk_tbl_ref_distrito_tbl_ref_concelho1`
     FOREIGN KEY (`id_concelho`)
-    REFERENCES `tbl_ref_concelho` (`id_concelho`)
+    REFERENCES `tbl_ref_concelho` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
@@ -86,7 +86,12 @@ CREATE TABLE IF NOT EXISTS `tbl_endereco` (
   INDEX `fk_tbl_endereco_tbl_ref_distrito1_idx` (`id_distrito` ASC),
   CONSTRAINT `fk_tbl_endereco_tbl_ref_distrito1`
     FOREIGN KEY (`id_distrito`)
-    REFERENCES `tbl_ref_distrito` (`id_distrito`)
+    REFERENCES `tbl_ref_distrito` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_tbl_imovel_tbl_endereco1`
+    FOREIGN KEY (`id_imovel`)
+    REFERENCES `tbl_imovel` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
@@ -100,15 +105,11 @@ DROP TABLE IF EXISTS `tbl_imovel` ;
 
 SHOW WARNINGS;
 CREATE TABLE IF NOT EXISTS `tbl_imovel` (
-  `id_imovel` BIGINT(4) NOT NULL AUTO_INCREMENT,
+  `id` BIGINT(4) NOT NULL AUTO_INCREMENT,
   `nome` VARCHAR(60) NOT NULL,
   `crp` VARCHAR(60) NULL,
-  PRIMARY KEY (`id_imovel`),
-  CONSTRAINT `fk_tbl_imovel_tbl_endereco1`
-    FOREIGN KEY (`id_imovel`)
-    REFERENCES `tbl_endereco` (`id_imovel`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
+  PRIMARY KEY (`id`)
+)
 ENGINE = InnoDB;
 
 SHOW WARNINGS;
@@ -120,7 +121,7 @@ DROP TABLE IF EXISTS `tbl_processo` ;
 
 SHOW WARNINGS;
 CREATE TABLE IF NOT EXISTS `tbl_processo` (
-  `id_processo` BIGINT(4) NOT NULL AUTO_INCREMENT,
+  `id` BIGINT(4) NOT NULL AUTO_INCREMENT,
   `id_imovel` BIGINT(4) NOT NULL,
   `cod_externo` VARCHAR(30) NOT NULL,
   `cod_interno` VARCHAR(9) NOT NULL,
@@ -129,11 +130,11 @@ CREATE TABLE IF NOT EXISTS `tbl_processo` (
   `requisitante` VARCHAR(60) NULL,
   `com_chaves` TINYINT(1) NULL,
   `observacoes` VARCHAR(300) NULL,
-  PRIMARY KEY (`id_processo`),
+  PRIMARY KEY (`id`),
   INDEX `fk_tbl_processo_tbl_imovel_idx` (`id_imovel` ASC),
   CONSTRAINT `fk_tbl_processo_tbl_imovel`
     FOREIGN KEY (`id_imovel`)
-    REFERENCES `tbl_imovel` (`id_imovel`)
+    REFERENCES `tbl_imovel` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
@@ -147,11 +148,11 @@ DROP TABLE IF EXISTS `tbl_ref_tp_servico` ;
 
 SHOW WARNINGS;
 CREATE TABLE IF NOT EXISTS `tbl_ref_tp_servico` (
-  `id_tp_servico` INT NOT NULL AUTO_INCREMENT,
+  `id` INT NOT NULL AUTO_INCREMENT,
   `nome` VARCHAR(60) NULL,
   `valor` DECIMAL(9,2) NULL,
   `descricao` VARCHAR(300) NULL,
-  PRIMARY KEY (`id_tp_servico`))
+  PRIMARY KEY (`id`))
 ENGINE = InnoDB;
 
 SHOW WARNINGS;
@@ -163,22 +164,22 @@ DROP TABLE IF EXISTS `tbl_servico` ;
 
 SHOW WARNINGS;
 CREATE TABLE IF NOT EXISTS `tbl_servico` (
-  `id_servico` BIGINT(4) NOT NULL AUTO_INCREMENT,
+  `id` BIGINT(4) NOT NULL AUTO_INCREMENT,
   `id_processo` BIGINT(4) NOT NULL,
   `id_tp_servico` INT NOT NULL,
   `valor` DECIMAL(9,2) NULL,
   `observacoes` VARCHAR(300) NULL,
-  PRIMARY KEY (`id_servico`),
+  PRIMARY KEY (`id`),
   INDEX `fk_tbl_servico_tbl_processo1_idx` (`id_processo` ASC),
   INDEX `fk_tbl_servico_tbl_ref_tp_servico1_idx` (`id_tp_servico` ASC),
   CONSTRAINT `fk_tbl_servico_tbl_processo1`
     FOREIGN KEY (`id_processo`)
-    REFERENCES `tbl_processo` (`id_processo`)
+    REFERENCES `tbl_processo` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_tbl_servico_tbl_ref_tp_servico1`
     FOREIGN KEY (`id_tp_servico`)
-    REFERENCES `tbl_ref_tp_servico` (`id_tp_servico`)
+    REFERENCES `tbl_ref_tp_servico` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
@@ -192,10 +193,10 @@ DROP TABLE IF EXISTS `tbl_ref_tipo_estado` ;
 
 SHOW WARNINGS;
 CREATE TABLE IF NOT EXISTS `tbl_ref_tipo_estado` (
-  `id_tipo_estado` INT NOT NULL,
+  `id` INT NOT NULL,
   `categoria` VARCHAR(30) NULL,
   `nome` VARCHAR(60) NULL,
-  PRIMARY KEY (`id_tipo_estado`))
+  PRIMARY KEY (`id`))
 ENGINE = InnoDB;
 
 SHOW WARNINGS;
@@ -207,22 +208,22 @@ DROP TABLE IF EXISTS `tbl_estado_servico` ;
 
 SHOW WARNINGS;
 CREATE TABLE IF NOT EXISTS `tbl_estado_servico` (
-  `id_estado_servico` BIGINT(4) NOT NULL,
+  `id` BIGINT(4) NOT NULL,
   `id_servico` BIGINT(4) NOT NULL,
   `id_tipo_estado` INT NOT NULL,
   `dt_inicio` DATETIME NULL,
   `dt_fim` DATETIME NULL,
-  PRIMARY KEY (`id_estado_servico`),
+  PRIMARY KEY (`id`),
   INDEX `fk_tbl_estado_servico_tbl_servico1_idx` (`id_servico` ASC),
   INDEX `fk_tbl_estado_servico_tbl_ref_tipo_estado1_idx` (`id_tipo_estado` ASC),
   CONSTRAINT `fk_tbl_estado_servico_tbl_servico1`
     FOREIGN KEY (`id_servico`)
-    REFERENCES `tbl_servico` (`id_servico`)
+    REFERENCES `tbl_servico` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_tbl_estado_servico_tbl_ref_tipo_estado1`
     FOREIGN KEY (`id_tipo_estado`)
-    REFERENCES `tbl_ref_tipo_estado` (`id_tipo_estado`)
+    REFERENCES `tbl_ref_tipo_estado` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
@@ -236,22 +237,22 @@ DROP TABLE IF EXISTS `tbl_estado_processo` ;
 
 SHOW WARNINGS;
 CREATE TABLE IF NOT EXISTS `tbl_estado_processo` (
-  `id_estado_processo` BIGINT(4) NOT NULL,
+  `id` BIGINT(4) NOT NULL,
   `id_processo` BIGINT(4) NOT NULL,
   `id_tipo_estado` INT NOT NULL,
   `dt_inicio` DATETIME NULL,
   `dt_fim` DATETIME NULL,
-  PRIMARY KEY (`id_estado_processo`),
+  PRIMARY KEY (`id`),
   INDEX `fk_tbl_estado_servico_tbl_ref_tipo_estado1_idx` (`id_tipo_estado` ASC),
   INDEX `fk_tbl_estado_processo_tbl_processo1_idx` (`id_processo` ASC),
   CONSTRAINT `fk_tbl_estado_servico_tbl_ref_tipo_estado10`
     FOREIGN KEY (`id_tipo_estado`)
-    REFERENCES `tbl_ref_tipo_estado` (`id_tipo_estado`)
+    REFERENCES `tbl_ref_tipo_estado` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_tbl_estado_processo_tbl_processo1`
     FOREIGN KEY (`id_processo`)
-    REFERENCES `tbl_processo` (`id_processo`)
+    REFERENCES `tbl_processo` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
@@ -265,9 +266,9 @@ DROP TABLE IF EXISTS `tbl_ref_categoria_peca` ;
 
 SHOW WARNINGS;
 CREATE TABLE IF NOT EXISTS `tbl_ref_categoria_peca` (
-  `id_categoria_peca` INT NOT NULL AUTO_INCREMENT,
+  `id` INT NOT NULL AUTO_INCREMENT,
   `nome` VARCHAR(60) NULL,
-  PRIMARY KEY (`id_categoria_peca`))
+  PRIMARY KEY (`id`))
 ENGINE = InnoDB;
 
 SHOW WARNINGS;
@@ -279,14 +280,14 @@ DROP TABLE IF EXISTS `tbl_peca` ;
 
 SHOW WARNINGS;
 CREATE TABLE IF NOT EXISTS `tbl_peca` (
-  `id_peca` INT NOT NULL AUTO_INCREMENT,
+  `id` INT NOT NULL AUTO_INCREMENT,
   `id_categoria_peca` INT NOT NULL,
   `nome` VARCHAR(60) NULL,
-  PRIMARY KEY (`id_peca`),
+  PRIMARY KEY (`id`),
   INDEX `fk_tbl_peca_tbl_ref_categoria_peca1_idx` (`id_categoria_peca` ASC),
   CONSTRAINT `fk_tbl_peca_tbl_ref_categoria_peca1`
     FOREIGN KEY (`id_categoria_peca`)
-    REFERENCES `tbl_ref_categoria_peca` (`id_categoria_peca`)
+    REFERENCES `tbl_ref_categoria_peca` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
@@ -300,20 +301,20 @@ DROP TABLE IF EXISTS `tbl_peca_servico` ;
 
 SHOW WARNINGS;
 CREATE TABLE IF NOT EXISTS `tbl_peca_servico` (
-  `id_peca_servico` BIGINT(4) NOT NULL AUTO_INCREMENT,
+  `id` BIGINT(4) NOT NULL AUTO_INCREMENT,
   `id_peca` INT NOT NULL,
   `id_servico` BIGINT(4) NOT NULL,
   INDEX `fk_tbl_peca_servico_tbl_peca1_idx` (`id_peca` ASC),
   INDEX `fk_tbl_peca_servico_tbl_servico1_idx` (`id_servico` ASC),
-  PRIMARY KEY (`id_peca_servico`),
+  PRIMARY KEY (`id`),
   CONSTRAINT `fk_tbl_peca_servico_tbl_peca1`
     FOREIGN KEY (`id_peca`)
-    REFERENCES `tbl_peca` (`id_peca`)
+    REFERENCES `tbl_peca` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_tbl_peca_servico_tbl_servico1`
     FOREIGN KEY (`id_servico`)
-    REFERENCES `tbl_servico` (`id_servico`)
+    REFERENCES `tbl_servico` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
