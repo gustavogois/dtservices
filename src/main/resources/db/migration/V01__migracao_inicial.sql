@@ -201,41 +201,6 @@ ENGINE = InnoDB;
 SHOW WARNINGS;
 
 -- -----------------------------------------------------
--- Table `tbl_ref_perfil_utilizador`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `tbl_ref_perfil_utilizador` ;
-
-SHOW WARNINGS;
-CREATE TABLE IF NOT EXISTS `tbl_ref_perfil_utilizador` (
-  `id_perfil_utilizador` INT NOT NULL,
-  `nome` VARCHAR(60) NULL,
-  PRIMARY KEY (`id_perfil_utilizador`))
-ENGINE = InnoDB;
-
-SHOW WARNINGS;
-
--- -----------------------------------------------------
--- Table `tbl_utilizador`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `tbl_utilizador` ;
-
-SHOW WARNINGS;
-CREATE TABLE IF NOT EXISTS `tbl_utilizador` (
-  `id_utilizador` INT NOT NULL AUTO_INCREMENT,
-  `id_perfil_utilizador` INT NOT NULL,
-  `nome` VARCHAR(60) NULL,
-  PRIMARY KEY (`id_utilizador`),
-  INDEX `fk_tbl_utilizador_tbl_ref_perfil_utilizador1_idx` (`id_perfil_utilizador` ASC),
-  CONSTRAINT `fk_tbl_utilizador_tbl_ref_perfil_utilizador1`
-    FOREIGN KEY (`id_perfil_utilizador`)
-    REFERENCES `tbl_ref_perfil_utilizador` (`id_perfil_utilizador`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB;
-
-SHOW WARNINGS;
-
--- -----------------------------------------------------
 -- Table `tbl_estado_servico`
 -- -----------------------------------------------------
 DROP TABLE IF EXISTS `tbl_estado_servico` ;
@@ -245,13 +210,11 @@ CREATE TABLE IF NOT EXISTS `tbl_estado_servico` (
   `id_estado_servico` BIGINT(4) NOT NULL,
   `id_servico` BIGINT(4) NOT NULL,
   `id_tipo_estado` INT NOT NULL,
-  `id_utilizador` INT NOT NULL,
   `dt_inicio` DATETIME NULL,
   `dt_fim` DATETIME NULL,
   PRIMARY KEY (`id_estado_servico`),
   INDEX `fk_tbl_estado_servico_tbl_servico1_idx` (`id_servico` ASC),
   INDEX `fk_tbl_estado_servico_tbl_ref_tipo_estado1_idx` (`id_tipo_estado` ASC),
-  INDEX `fk_tbl_estado_servico_tbl_utilizador1_idx` (`id_utilizador` ASC),
   CONSTRAINT `fk_tbl_estado_servico_tbl_servico1`
     FOREIGN KEY (`id_servico`)
     REFERENCES `tbl_servico` (`id_servico`)
@@ -260,11 +223,6 @@ CREATE TABLE IF NOT EXISTS `tbl_estado_servico` (
   CONSTRAINT `fk_tbl_estado_servico_tbl_ref_tipo_estado1`
     FOREIGN KEY (`id_tipo_estado`)
     REFERENCES `tbl_ref_tipo_estado` (`id_tipo_estado`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT `fk_tbl_estado_servico_tbl_utilizador1`
-    FOREIGN KEY (`id_utilizador`)
-    REFERENCES `tbl_utilizador` (`id_utilizador`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
@@ -281,13 +239,11 @@ CREATE TABLE IF NOT EXISTS `tbl_estado_processo` (
   `id_estado_processo` BIGINT(4) NOT NULL,
   `id_processo` BIGINT(4) NOT NULL,
   `id_tipo_estado` INT NOT NULL,
-  `id_utilizador` INT NOT NULL,
   `dt_inicio` DATETIME NULL,
   `dt_fim` DATETIME NULL,
   PRIMARY KEY (`id_estado_processo`),
   INDEX `fk_tbl_estado_servico_tbl_ref_tipo_estado1_idx` (`id_tipo_estado` ASC),
   INDEX `fk_tbl_estado_processo_tbl_processo1_idx` (`id_processo` ASC),
-  INDEX `fk_tbl_estado_processo_tbl_utilizador1_idx` (`id_utilizador` ASC),
   CONSTRAINT `fk_tbl_estado_servico_tbl_ref_tipo_estado10`
     FOREIGN KEY (`id_tipo_estado`)
     REFERENCES `tbl_ref_tipo_estado` (`id_tipo_estado`)
@@ -296,11 +252,6 @@ CREATE TABLE IF NOT EXISTS `tbl_estado_processo` (
   CONSTRAINT `fk_tbl_estado_processo_tbl_processo1`
     FOREIGN KEY (`id_processo`)
     REFERENCES `tbl_processo` (`id_processo`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT `fk_tbl_estado_processo_tbl_utilizador1`
-    FOREIGN KEY (`id_utilizador`)
-    REFERENCES `tbl_utilizador` (`id_utilizador`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
@@ -366,6 +317,55 @@ CREATE TABLE IF NOT EXISTS `tbl_peca_servico` (
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
+
+SHOW WARNINGS;
+
+-- -----------------------------------------------------
+-- Table `tbl_utilizador`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `tbl_utilizador` ;
+
+SHOW WARNINGS;
+
+CREATE TABLE tbl_utilizador (
+	id BIGINT(20) PRIMARY KEY,
+	nome VARCHAR(50) NOT NULL,
+	email VARCHAR(50) NOT NULL,
+	senha VARCHAR(150) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+SHOW WARNINGS;
+
+DROP TABLE IF EXISTS `tbl_permissao` ;
+
+-- -----------------------------------------------------
+-- Table `tbl_permissao`
+-- -----------------------------------------------------
+
+SHOW WARNINGS;
+
+CREATE TABLE tbl_permissao (
+	id BIGINT(20) PRIMARY KEY,
+	descricao VARCHAR(50) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+SHOW WARNINGS;
+
+DROP TABLE IF EXISTS `tbl_utilizador_permissao` ;
+
+-- -----------------------------------------------------
+-- Table `tbl_utilizador_permissao`
+-- -----------------------------------------------------
+
+SHOW WARNINGS;
+
+CREATE TABLE tbl_utilizador_permissao (
+	id_usuario BIGINT(20) NOT NULL,
+	id_permissao BIGINT(20) NOT NULL,
+	PRIMARY KEY (id_usuario, id_permissao),
+	FOREIGN KEY (id_usuario) REFERENCES tbl_utilizador(id),
+	FOREIGN KEY (id_permissao) REFERENCES tbl_permissao(id)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 SHOW WARNINGS;
 
