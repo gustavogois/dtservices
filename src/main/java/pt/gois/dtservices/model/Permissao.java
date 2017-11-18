@@ -16,23 +16,9 @@ public class Permissao implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private String id;
 
 	private String descricao;
-
-	//bi-directional many-to-many association to Utilizador
-	@ManyToMany
-	@JoinTable(
-		name="tbl_utilizador_permissao"
-		, joinColumns={
-			@JoinColumn(name="id_permissao")
-			}
-		, inverseJoinColumns={
-			@JoinColumn(name="id_usuario")
-			}
-		)
-	private List<Utilizador> tblUtilizadors;
 
 	public Permissao() {
 	}
@@ -53,12 +39,5 @@ public class Permissao implements Serializable {
 		this.descricao = descricao;
 	}
 
-	public List<Utilizador> getTblUtilizadors() {
-		return this.tblUtilizadors;
-	}
-
-	public void setTblUtilizadors(List<Utilizador> tblUtilizadors) {
-		this.tblUtilizadors = tblUtilizadors;
-	}
 
 }

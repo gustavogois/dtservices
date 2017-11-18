@@ -27,9 +27,9 @@ INSERT INTO tbl_permissao (id, descricao) values (2, 'ROLE_PESQUISAR_TIPO_DE_SER
 INSERT INTO tbl_permissao (id, descricao) values (3, 'ROLE_EXCLUIR_TIPO_DE_SERVICO');
 
 -- Permissões admin
-INSERT INTO tbl_utilizador_permissao (id_usuario, id_permissao) values (1, 1);
-INSERT INTO tbl_utilizador_permissao (id_usuario, id_permissao) values (1, 2);
-INSERT INTO tbl_utilizador_permissao (id_usuario, id_permissao) values (1, 3);
+INSERT INTO tbl_utilizador_permissao (id_utilizador, id_permissao) values (1, 1);
+INSERT INTO tbl_utilizador_permissao (id_utilizador, id_permissao) values (1, 2);
+INSERT INTO tbl_utilizador_permissao (id_utilizador, id_permissao) values (1, 3);
 
 -- Permissões maria
-INSERT INTO tbl_utilizador_permissao (id_usuario, id_permissao) values (2, 2);
+INSERT INTO tbl_utilizador_permissao (id_utilizador, id_permissao) values (2, 2);

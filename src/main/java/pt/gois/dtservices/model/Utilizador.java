@@ -1,8 +1,16 @@
 package pt.gois.dtservices.model;
 
 import java.io.Serializable;
-import javax.persistence.*;
 import java.util.List;
+
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.NamedQuery;
+import javax.persistence.Table;
 
 
 /**
@@ -16,7 +24,6 @@ public class Utilizador implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private String id;
 
 	private String email;
@@ -26,8 +33,10 @@ public class Utilizador implements Serializable {
 	private String senha;
 
 	//bi-directional many-to-many association to Permissao
-	@ManyToMany(mappedBy="tblUtilizadors")
-	private List<Permissao> tblPermissaos;
+	@ManyToMany(fetch = FetchType.EAGER)
+	@JoinTable(name = "tbl_utilizador_permissao", joinColumns = @JoinColumn(name="id_utilizador")
+												, inverseJoinColumns = @JoinColumn(name="id_permissao")	)
+	private List<Permissao> permissoes;
 
 	public Utilizador() {
 	}
@@ -64,12 +73,12 @@ public class Utilizador implements Serializable {
 		this.senha = senha;
 	}
 
-	public List<Permissao> getTblPermissaos() {
-		return this.tblPermissaos;
+	public List<Permissao> getPermissoes() {
+		return this.permissoes;
 	}
 
-	public void setTblPermissaos(List<Permissao> tblPermissaos) {
-		this.tblPermissaos = tblPermissaos;
+	public void setPermissoes(List<Permissao> permissoes) {
+		this.permissoes = permissoes;
 	}
 
 }

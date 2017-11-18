@@ -361,10 +361,10 @@ DROP TABLE IF EXISTS `tbl_utilizador_permissao` ;
 SHOW WARNINGS;
 
 CREATE TABLE tbl_utilizador_permissao (
-	id_usuario BIGINT(20) NOT NULL,
+	id_utilizador BIGINT(20) NOT NULL,
 	id_permissao BIGINT(20) NOT NULL,
-	PRIMARY KEY (id_usuario, id_permissao),
-	FOREIGN KEY (id_usuario) REFERENCES tbl_utilizador(id),
+	PRIMARY KEY (id_utilizador, id_permissao),
+	FOREIGN KEY (id_utilizador) REFERENCES tbl_utilizador(id),
 	FOREIGN KEY (id_permissao) REFERENCES tbl_permissao(id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
