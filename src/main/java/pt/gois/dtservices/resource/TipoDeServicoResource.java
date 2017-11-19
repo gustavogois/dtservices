@@ -10,6 +10,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -43,17 +44,20 @@ public class TipoDeServicoResource {
 	private MessageSource messageSource;
 	
 	@GetMapping
+	@PreAuthorize("hasAuthority('ROLE_PESQUISAR_TIPO_DE_SERVICO')")
 	public Page<TipoDeServico> pesquisar(TipoDeServicoFilter tipoDeServicoFilter, Pageable pageable) {
 		return tipoDeServicoRepository.filtrar(tipoDeServicoFilter, pageable);
 	}
 	
 	@GetMapping("/{codigo}")
+	@PreAuthorize("hasAuthority('ROLE_PESQUISAR_TIPO_DE_SERVICO')")
 	public ResponseEntity<TipoDeServico> buscarPeloCodigo(@PathVariable Long codigo) {
 		TipoDeServico tipoDeServico = tipoDeServicoRepository.findOne(codigo);
 		return tipoDeServico != null ? ResponseEntity.ok(tipoDeServico) : ResponseEntity.notFound().build();
 	}
 	
 	@PostMapping
+	@PreAuthorize("hasAuthority('ROLE_CADASTRAR_TIPO_DE_SERVICO')")
 	public ResponseEntity<TipoDeServico> criar(@Valid @RequestBody TipoDeServico tipoDeServico, HttpServletResponse response) {
 		TipoDeServico tipoDeServicoSalvo = tipoDeServicoRepository.save(tipoDeServico);
 		publisher.publishEvent(new RecursoCriadoEvent(this, response, tipoDeServicoSalvo.getId()));
@@ -61,6 +65,7 @@ public class TipoDeServicoResource {
 	}
 	
 	@PutMapping("/{id}")
+	@PreAuthorize("hasAuthority('ROLE_CADASTRAR_TIPO_DE_SERVICO')")
 	public ResponseEntity<TipoDeServico> atualizar(@PathVariable Long id, @Valid @RequestBody TipoDeServico tipoDeServico) {
 		return ResponseEntity.ok(tipoDeServicoService.atualizar(id, tipoDeServico));
 	}
@@ -68,9 +73,8 @@ public class TipoDeServicoResource {
 	
 	@DeleteMapping("/{id}")
 	@ResponseStatus(HttpStatus.NO_CONTENT)
+	@PreAuthorize("hasAuthority('ROLE_EXCLUIR_TIPO_DE_SERVICO')")
 	public void remover(@PathVariable Long id) {
 		tipoDeServicoRepository.delete(id);;
 	}
-
-	
 }
