@@ -21,19 +21,19 @@ import pt.gois.dtservices.repository.UsuarioRepository;
 public class AppUserDetailsService implements UserDetailsService {
 
 	@Autowired
-	private UsuarioRepository usuarioRepository;
+	private UsuarioRepository utilizadorRepository;
 	
 	@Override
 	public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-		Optional<Utilizador> usuarioOptional = usuarioRepository.findByEmail(email);
-		Utilizador usuario = usuarioOptional.orElseThrow(() -> new UsernameNotFoundException("Usuário e/ou senha incorretos"));
-		return new User(email, usuario.getSenha(), getPermissoes(usuario));
+		Optional<Utilizador> utilizadorOptional = utilizadorRepository.findByEmail(email);
+		Utilizador utilizador = utilizadorOptional.orElseThrow(() -> new UsernameNotFoundException("Usuário e/ou senha incorretos"));
+		return new UsuarioSistema(utilizador, getPermissoes(utilizador));
 		
 	}
 
-	private Collection<? extends GrantedAuthority> getPermissoes(Utilizador usuario) {
+	private Collection<? extends GrantedAuthority> getPermissoes(Utilizador utilizador) {
 		Set<SimpleGrantedAuthority> authorities = new HashSet<>();
-		usuario.getPermissoes().forEach(p -> authorities.add(new SimpleGrantedAuthority(p.getDescricao().toUpperCase())));
+		utilizador.getPermissoes().forEach(p -> authorities.add(new SimpleGrantedAuthority(p.getDescricao().toUpperCase())));
 		return authorities;
 	}
 
